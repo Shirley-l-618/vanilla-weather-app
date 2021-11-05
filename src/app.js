@@ -55,11 +55,12 @@ let form = document.querySelector("#search-form");
 form.addEventListener("submit", searchSubmit);
 
 function showCurrentWeather(response) {
-  console.log(response.data.main.temp);
   document.querySelector("h2").innerHTML = `${response.data.name}`;
-  document.querySelector("h1").innerHTML =
+  document.querySelector(".bigTemp").innerHTML =
     Math.round(response.data.main.temp) + `°C`;
-  document.querySelector("h3").innerHTML = `${response.data.weather[0].main}`;
+  document.querySelector(
+    "h3"
+  ).innerHTML = `${response.data.weather[0].description}`;
   document.querySelector(
     "#humidity"
   ).innerHTML = `<i class="fas fa-tint"></i> Humidity: ${response.data.main.humidity}%`;
@@ -68,6 +69,12 @@ function showCurrentWeather(response) {
   ).innerHTML = `<i class="fas fa-wind"></i> Wind: ${Math.round(
     response.data.wind.speed
   )} km/h`;
+  let iconElement = document.querySelector("#icon");
+  iconElement.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
 function getCurrentPosition(position) {
